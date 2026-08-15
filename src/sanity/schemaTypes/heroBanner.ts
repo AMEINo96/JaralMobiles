@@ -38,8 +38,8 @@ export const heroBanner = defineType({
             defineField({
               name: 'link',
               title: 'Link URL (Optional)',
-              type: 'url',
-              description: 'Where the user goes when they click this banner.',
+              type: 'string',
+              description: 'Where the user goes when they click this banner (e.g., /shop or https://...).',
             }),
           ],
           preview: {

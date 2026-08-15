@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
-import { getFeaturedProductsQuery, getHeroBannerQuery } from "@/sanity/lib/queries";
+import { getFeaturedProductsQuery, getHeroBannerQuery, getStoreSettingsQuery } from "@/sanity/lib/queries";
 import ProductCard from "@/components/ProductCard";
 import HeroCarousel from "@/components/HeroCarousel";
 import { 
@@ -16,12 +16,17 @@ import {
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const [products, heroBanner] = await Promise.all([
+  const [products, heroBanner, storeSettings] = await Promise.all([
     client.fetch(getFeaturedProductsQuery),
     client.fetch(getHeroBannerQuery),
+    client.fetch(getStoreSettingsQuery),
   ]);
 
   const hasSlides = heroBanner?.slides && heroBanner.slides.length > 0;
+  
+  const heroBadge = storeSettings?.heroBadge || "Trusted by 2000+ Customers";
+  const heroTitle = storeSettings?.heroTitle || "Fast & Reliable Mobile Repairs, Genuine Accessories";
+  const heroSubtitle = storeSettings?.heroSubtitle || "Your one-stop destination for premium mobile phone accessories and expert repair services. Quality guaranteed.";
 
   return (
     <div className="bg-white min-h-screen">
@@ -36,15 +41,15 @@ export default async function HomePage() {
             {/* Left Column */}
             <div className="w-full lg:w-1/2 space-y-8">
               <div className="inline-block bg-blue-50 text-blue-600 text-sm font-medium px-4 py-1.5 rounded-full">
-                Trusted by 2000+ Customers
+                {heroBadge}
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
-                Fast & Reliable Mobile Repairs, Genuine Accessories
+                {heroTitle}
               </h1>
               
               <p className="text-lg text-slate-600 max-w-xl">
-                Your one-stop destination for premium mobile phone accessories and expert repair services. Quality guaranteed.
+                {heroSubtitle}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">

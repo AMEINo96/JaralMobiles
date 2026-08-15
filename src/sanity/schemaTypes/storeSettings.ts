@@ -29,6 +29,32 @@ export const storeSettings = defineType({
       group: 'branding',
     }),
 
+    // --- HERO SECTION (STATIC) ---
+    defineField({
+      name: 'heroBadge',
+      title: 'Hero Badge Text',
+      type: 'string',
+      description: 'The small pill badge text above the main heading (e.g., "Trusted by 2000+ Customers").',
+      initialValue: 'Trusted by 2000+ Customers',
+      group: 'hero',
+    }),
+    defineField({
+      name: 'heroTitle',
+      title: 'Hero Main Heading',
+      type: 'string',
+      description: 'The large main heading on the homepage fallback hero.',
+      initialValue: 'Fast & Reliable Mobile Repairs, Genuine Accessories',
+      group: 'hero',
+    }),
+    defineField({
+      name: 'heroSubtitle',
+      title: 'Hero Subtitle',
+      type: 'text',
+      description: 'The paragraph text below the main heading.',
+      initialValue: 'Your one-stop destination for premium mobile phone accessories and expert repair services. Quality guaranteed.',
+      group: 'hero',
+    }),
+
     // --- BILLING & TAXES ---
     defineField({
       name: 'shippingFee',
@@ -165,6 +191,7 @@ export const storeSettings = defineType({
   ],
   groups: [
     { name: 'branding', title: 'Branding & SEO' },
+    { name: 'hero', title: 'Homepage Hero (Static)' },
     { name: 'billing', title: 'Billing & Taxes' },
     { name: 'payments', title: 'Payments & WhatsApp' },
     { name: 'storeInfo', title: 'Store Info & Links' },
