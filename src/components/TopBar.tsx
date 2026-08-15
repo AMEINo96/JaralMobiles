@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, Search, X, Home, Grid, Bell, User, ShoppingBag } from 'lucide-react';
+import { Menu, Search, X, Home, Grid, ShoppingBag } from 'lucide-react';
 import { useCartStore } from '@/store/cartStore';
 import { usePathname } from 'next/navigation';
 
@@ -95,19 +95,6 @@ export default function TopBar() {
               <Grid className="w-5 h-5 text-blue-600" />
               <span className="text-slate-800 font-medium">Categories</span>
             </Link>
-
-            <button onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between px-6 py-4 border-b border-slate-100 active:bg-slate-50 w-full text-left">
-              <div className="flex items-center gap-3">
-                <Bell className="w-5 h-5 text-blue-600" />
-                <span className="text-slate-800 font-medium">Alerts</span>
-              </div>
-              <span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">2 New</span>
-            </button>
-            
-            <button onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 px-6 py-4 active:bg-slate-50 w-full text-left">
-              <User className="w-5 h-5 text-blue-600" />
-              <span className="text-slate-800 font-medium">Account</span>
-            </button>
           </nav>
         </div>
       )}
