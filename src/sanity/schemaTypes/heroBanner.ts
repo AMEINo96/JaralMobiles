@@ -13,6 +13,20 @@ export const heroBanner = defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
+      name: 'layout',
+      title: 'Banner Layout Style',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Full Landscape (Spans entire width)', value: 'full' },
+          { title: 'Split (Text on left, Banner on right)', value: 'split' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'full',
+      description: 'Choose how the banner is displayed on the homepage.',
+    }),
+    defineField({
       name: 'slides',
       title: 'Slides',
       type: 'array',

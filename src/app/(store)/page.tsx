@@ -23,6 +23,7 @@ export default async function HomePage() {
   ]);
 
   const hasSlides = heroBanner?.slides && heroBanner.slides.length > 0;
+  const layout = heroBanner?.layout || 'full';
   
   const heroBadge = storeSettings?.heroBadge || "Trusted by 2000+ Customers";
   const heroTitle = storeSettings?.heroTitle || "Fast & Reliable Mobile Repairs, Genuine Accessories";
@@ -31,7 +32,7 @@ export default async function HomePage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      {hasSlides ? (
+      {hasSlides && layout === 'full' ? (
         <section className="w-full">
           <HeroCarousel slides={heroBanner.slides} />
         </section>
@@ -73,10 +74,16 @@ export default async function HomePage() {
             
             {/* Right Column */}
             <div className="w-full lg:w-1/2">
-              <div className="bg-gradient-to-br from-blue-50 to-slate-100 rounded-3xl p-8 aspect-square flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-blue-600/5 mix-blend-overlay"></div>
-                <Smartphone className="w-48 h-48 text-blue-600 drop-shadow-xl z-10" strokeWidth={1} />
-              </div>
+              {hasSlides && layout === 'split' ? (
+                <div className="rounded-3xl overflow-hidden shadow-2xl bg-white border border-slate-100">
+                  <HeroCarousel slides={heroBanner.slides} />
+                </div>
+              ) : (
+                <div className="bg-gradient-to-br from-blue-50 to-slate-100 rounded-3xl p-8 aspect-square flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-blue-600/5 mix-blend-overlay"></div>
+                  <Smartphone className="w-48 h-48 text-blue-600 drop-shadow-xl z-10" strokeWidth={1} />
+                </div>
+              )}
             </div>
           </div>
         </section>

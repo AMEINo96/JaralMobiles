@@ -80,6 +80,7 @@ export const getStoreSettingsQuery = groq`
 export const getHeroBannerQuery = groq`
   *[_type == "heroBanner"] | order(_updatedAt desc)[0] {
     title,
+    layout,
     slides[] {
       image,
       altText,
