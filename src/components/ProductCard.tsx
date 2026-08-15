@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Star } from 'lucide-react';
 import { urlForImage } from '@/sanity/lib/image';
 import { useCartStore } from '@/store/cartStore';
 
@@ -12,8 +12,8 @@ export default function ProductCard({ product }: { product: any }) {
   const inStock = product.stock > 0 || product.inStock !== false;
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col">
-      <Link href={`/product/${product.slug?.current || product._id}`} className="relative aspect-square bg-slate-50 overflow-hidden block">
+    <div className="bg-white rounded-lg border border-slate-100 overflow-hidden shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300 group flex flex-col h-full">
+      <Link href={`/product/${product.slug?.current || product._id}`} className="relative aspect-square bg-slate-50 block">
         {mainImage ? (
           <Image
             src={urlForImage(mainImage).url()}
@@ -28,35 +28,51 @@ export default function ProductCard({ product }: { product: any }) {
           </div>
         )}
         
-        {inStock ? (
-          <span className="absolute top-3 left-3 bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-2.5 py-1 rounded-full">
-            In Stock
-          </span>
-        ) : (
-          <span className="absolute top-3 left-3 bg-red-50 text-red-600 text-[11px] font-semibold px-2.5 py-1 rounded-full">
+        {/* Top Left Badge */}
+        {!inStock && (
+          <span className="absolute top-2 left-2 bg-red-50/90 backdrop-blur-sm text-red-600 text-[9px] font-bold px-2 py-0.5 rounded-sm">
             Out of Stock
           </span>
         )}
+
+        {/* Rating Pill (Bottom Center overlapping) */}
+        <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-[#FFF8E1] border border-amber-100 text-amber-600 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm z-10 whitespace-nowrap">
+          <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+          <span>4.9</span>
+        </div>
       </Link>
 
-      <div className="p-5 flex flex-col flex-1">
-        <span className="text-[11px] font-semibold text-blue-600 uppercase tracking-wider mb-1.5">
+      <div className="p-3 md:p-4 flex flex-col flex-1 mt-2">
+        <span className="text-[9px] md:text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
           {product.category?.title || 'Accessories'}
         </span>
-        <Link href={`/product/${product.slug?.current || product._id}`} className="text-sm font-semibold text-slate-900 line-clamp-2 hover:text-blue-600 mb-3">
-          {product.title}
+        
+        <Link href={`/product/${product.slug?.current || product._id}`} className="group-hover:text-blue-600 transition-colors mb-2">
+          <h3 className="text-xs md:text-sm font-semibold text-slate-800 line-clamp-2 leading-tight flex flex-wrap gap-1 items-start">
+            {product.title}
+            <span className="inline-block bg-emerald-700 text-white text-[8px] md:text-[9px] font-bold px-1.5 py-0.5 rounded-sm leading-none mt-0.5">
+              SALE
+            </span>
+          </h3>
         </Link>
-        <div className="text-lg font-bold text-slate-900 mt-auto mb-4">
-          Rs. {product.price?.toLocaleString() || 0}
+        
+        <div className="mt-auto flex items-center justify-between">
+          <div className="text-sm md:text-lg font-extrabold text-slate-900">
+            Rs. {product.price?.toLocaleString() || 0}
+          </div>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              addItem({ _id: product._id, title: product.title, price: product.price, image: mainImage });
+            }}
+            disabled={!inStock}
+            className="w-8 h-8 md:w-auto md:h-auto md:px-4 md:py-2 bg-slate-900 hover:bg-blue-600 disabled:bg-slate-100 disabled:text-slate-300 text-white rounded-full md:rounded-lg flex items-center justify-center transition-colors shrink-0 shadow-sm"
+            aria-label="Add to cart"
+          >
+            <ShoppingBag className="w-4 h-4 md:mr-2" />
+            <span className="hidden md:inline text-sm font-semibold">Add</span>
+          </button>
         </div>
-        <button
-          onClick={() => addItem({ _id: product._id, title: product.title, price: product.price, image: mainImage })}
-          disabled={!inStock}
-          className="w-full bg-slate-900 hover:bg-blue-600 disabled:bg-slate-200 disabled:text-slate-400 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2"
-        >
-          <ShoppingBag className="w-4 h-4" />
-          {inStock ? 'Add to Cart' : 'Out of Stock'}
-        </button>
       </div>
     </div>
   );
