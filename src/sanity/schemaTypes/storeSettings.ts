@@ -29,6 +29,26 @@ export const storeSettings = defineType({
       group: 'branding',
     }),
 
+    // --- THEME & COLORS ---
+    defineField({
+      name: 'activeTheme',
+      title: 'Website Color Theme',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Default (Original Blue) - Revert to original', value: 'default' },
+          { title: 'Ruby Red', value: 'red' },
+          { title: 'Emerald Green', value: 'emerald' },
+          { title: 'Royal Purple', value: 'purple' },
+          { title: 'Sunset Orange', value: 'amber' },
+        ],
+        layout: 'dropdown',
+      },
+      initialValue: 'default',
+      description: 'Changes the main accent color (buttons, icons, highlights) across the entire website. If you mess up, simply select "Default (Original Blue)" to revert everything back to normal.',
+      group: 'theme',
+    }),
+
     // --- HERO SECTION (STATIC) ---
     defineField({
       name: 'heroBadge',
@@ -191,6 +211,7 @@ export const storeSettings = defineType({
   ],
   groups: [
     { name: 'branding', title: 'Branding & SEO' },
+    { name: 'theme', title: 'Theme & Colors' },
     { name: 'hero', title: 'Homepage Hero (Static)' },
     { name: 'billing', title: 'Billing & Taxes' },
     { name: 'payments', title: 'Payments & WhatsApp' },

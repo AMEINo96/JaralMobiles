@@ -53,6 +53,7 @@ export const getStoreSettingsQuery = groq`
     siteLogo,
     siteTitle,
     siteDescription,
+    activeTheme,
     heroBadge,
     heroTitle,
     heroSubtitle,

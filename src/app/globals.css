@@ -19,3 +19,73 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@theme {
+  --color-blue-50: var(--theme-50, #eff6ff);
+  --color-blue-100: var(--theme-100, #dbeafe);
+  --color-blue-200: var(--theme-200, #bfdbfe);
+  --color-blue-300: var(--theme-300, #93c5fd);
+  --color-blue-400: var(--theme-400, #60a5fa);
+  --color-blue-500: var(--theme-500, #3b82f6);
+  --color-blue-600: var(--theme-600, #2563eb);
+  --color-blue-700: var(--theme-700, #1d4ed8);
+  --color-blue-800: var(--theme-800, #1e40af);
+  --color-blue-900: var(--theme-900, #1e3a8a);
+  --color-blue-950: var(--theme-950, #172554);
+}
+
+.theme-red {
+  --theme-50: #fef2f2;
+  --theme-100: #fee2e2;
+  --theme-200: #fecaca;
+  --theme-300: #fca5a5;
+  --theme-400: #f87171;
+  --theme-500: #ef4444;
+  --theme-600: #dc2626;
+  --theme-700: #b91c1c;
+  --theme-800: #991b1b;
+  --theme-900: #7f1d1d;
+  --theme-950: #450a0a;
+}
+
+.theme-emerald {
+  --theme-50: #ecfdf5;
+  --theme-100: #d1fae5;
+  --theme-200: #a7f3d0;
+  --theme-300: #6ee7b7;
+  --theme-400: #34d399;
+  --theme-500: #10b981;
+  --theme-600: #059669;
+  --theme-700: #047857;
+  --theme-800: #065f46;
+  --theme-900: #064e3b;
+  --theme-950: #022c22;
+}
+
+.theme-purple {
+  --theme-50: #faf5ff;
+  --theme-100: #f3e8ff;
+  --theme-200: #e9d5ff;
+  --theme-300: #d8b4fe;
+  --theme-400: #c084fc;
+  --theme-500: #a855f7;
+  --theme-600: #9333ea;
+  --theme-700: #7e22ce;
+  --theme-800: #6b21a8;
+  --theme-900: #581c87;
+  --theme-950: #3b0764;
+}
+
+.theme-amber {
+  --theme-50: #fffbeb;
+  --theme-100: #fef3c7;
+  --theme-200: #fde68a;
+  --theme-300: #fcd34d;
+  --theme-400: #fbbf24;
+  --theme-500: #f59e0b;
+  --theme-600: #d97706;
+  --theme-700: #b45309;
+  --theme-800: #92400e;
+  --theme-900: #78350f;
+  --theme-950: #451a03;
+}

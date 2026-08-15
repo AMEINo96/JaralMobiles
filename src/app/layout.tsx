@@ -15,10 +15,17 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const settings = await client.fetch(getStoreSettingsQuery)
+  
+  // By default (or if not set), no class is applied, falling back to original Tailwind blue.
+  const themeClass = settings?.activeTheme && settings.activeTheme !== 'default' 
+    ? `theme-${settings.activeTheme}` 
+    : ''
+
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} ${themeClass} antialiased`}>
         {children}
       </body>
     </html>
