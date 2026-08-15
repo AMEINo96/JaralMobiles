@@ -4,7 +4,6 @@ import CartDrawer from '@/components/CartDrawer'
 import AnnouncementBar from '@/components/AnnouncementBar'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import TopBar from '@/components/TopBar'
-import BottomNav from '@/components/BottomNav'
 import { client } from '@/sanity/lib/client'
 import { getStoreSettingsQuery } from '@/sanity/lib/queries'
 
@@ -18,7 +17,7 @@ export default async function StoreLayout({
   const storeSettings = await client.fetch(getStoreSettingsQuery)
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 relative pb-16 md:pb-0">
+    <div className="min-h-screen flex flex-col bg-slate-50 relative">
       <AnnouncementBar settings={storeSettings} />
       
       {/* Mobile Top Bar */}
@@ -37,9 +36,6 @@ export default async function StoreLayout({
       
       <WhatsAppFloat settings={storeSettings} />
       <Footer settings={storeSettings} />
-      
-      {/* Mobile Bottom Nav */}
-      <BottomNav />
     </div>
   )
 }
