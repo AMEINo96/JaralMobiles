@@ -13,8 +13,8 @@ const categories = [
 
 export default function CategoryRibbon() {
   return (
-    <div className="md:hidden bg-white border-b border-slate-100">
-      <div className="flex overflow-x-auto hide-scrollbar py-4 px-2 gap-4">
+    <div className="bg-white border-b border-slate-100">
+      <div className="flex overflow-x-auto hide-scrollbar py-4 px-2 gap-4 md:justify-center md:gap-8 md:py-6">
         {categories.map((category) => (
           <Link 
             key={category.name} 

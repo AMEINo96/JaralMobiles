@@ -128,16 +128,16 @@ export default async function HomePage() {
       </section>
 
       {/* Themed Top Deals Section */}
-      <section className="bg-emerald-600 md:bg-white rounded-t-3xl md:rounded-none mt-2 md:mt-0 pt-5 md:pt-20 pb-6 md:pb-20">
+      <section className="bg-emerald-600 rounded-t-3xl md:rounded-none mt-2 md:mt-0 pt-5 md:pt-16 pb-6 md:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-5 md:mb-10">
             <div>
-              <h2 className="text-xl md:text-3xl font-extrabold text-white md:text-slate-900 tracking-tight">Top Deals</h2>
-              <p className="text-white/80 md:text-slate-600 text-xs md:text-base mt-0.5 md:mt-2">Featured Accessories & Essentials</p>
+              <h2 className="text-xl md:text-3xl font-extrabold text-white tracking-tight">Top Deals</h2>
+              <p className="text-white/80 text-xs md:text-base mt-0.5 md:mt-2">Featured Accessories & Essentials</p>
             </div>
             <Link 
               href="/shop"
-              className="bg-white md:bg-transparent text-emerald-700 md:text-blue-600 text-[11px] md:text-base font-bold px-3 py-1.5 md:px-0 md:py-0 rounded-full shadow-sm md:shadow-none hover:md:text-blue-700 flex items-center gap-1 transition-all"
+              className="bg-white text-emerald-700 text-[11px] md:text-sm font-bold px-3 py-1.5 md:px-5 md:py-2.5 rounded-full shadow-sm hover:shadow-md hover:bg-emerald-50 flex items-center gap-1 transition-all"
             >
               View all
               <ArrowRight className="hidden md:block w-4 h-4" />

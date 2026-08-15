@@ -1,4 +1,3 @@
-import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import CartDrawer from '@/components/CartDrawer'
 import AnnouncementBar from '@/components/AnnouncementBar'
@@ -20,13 +19,8 @@ export default async function StoreLayout({
     <div className="min-h-screen flex flex-col bg-slate-50 relative">
       <AnnouncementBar settings={storeSettings} />
       
-      {/* Mobile Top Bar */}
+      {/* Unified Global Header */}
       <TopBar />
-      
-      {/* Desktop Navbar */}
-      <div className="hidden md:block">
-        <Navbar settings={storeSettings} />
-      </div>
       
       <CartDrawer settings={storeSettings} />
       
