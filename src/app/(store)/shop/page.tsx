@@ -72,11 +72,12 @@ export default function ShopPage() {
 
       {/* Filter/Search Bar */}
       <div className="sticky top-[60px] z-30 bg-white/95 backdrop-blur-md border-b border-slate-100 py-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row gap-4 items-center justify-between">
-          <div className="flex overflow-x-auto pb-2 sm:pb-0 w-full sm:w-auto scrollbar-hide gap-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row gap-4 sm:items-center justify-between">
+          
+          <div className="flex overflow-x-auto w-full sm:w-auto hide-scrollbar gap-2 items-center flex-nowrap">
             <button
               onClick={() => setActiveCategory('all')}
-              className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors flex-shrink-0 ${
                 activeCategory === 'all'
                   ? 'bg-blue-600 text-white'
                   : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'
@@ -88,7 +89,7 @@ export default function ShopPage() {
               <button
                 key={category._id}
                 onClick={() => setActiveCategory(category._id)}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors flex-shrink-0 ${
                   activeCategory === category._id
                     ? 'bg-blue-600 text-white'
                     : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'

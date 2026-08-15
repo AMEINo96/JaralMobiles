@@ -53,6 +53,8 @@ export const getStoreSettingsQuery = groq`
     siteLogo,
     siteTitle,
     siteDescription,
+    taxRate,
+    shippingFee,
     whatsappNumber,
     easypaisaDetails,
     jazzcashDetails,

@@ -29,6 +29,24 @@ export const storeSettings = defineType({
       group: 'branding',
     }),
 
+    // --- BILLING & TAXES ---
+    defineField({
+      name: 'shippingFee',
+      title: 'Standard Shipping Fee (Rs)',
+      type: 'number',
+      description: 'Enter the flat shipping rate. Use 0 for free shipping.',
+      initialValue: 200,
+      group: 'billing',
+    }),
+    defineField({
+      name: 'taxRate',
+      title: 'Tax Rate (%)',
+      type: 'number',
+      description: 'Enter the tax percentage (e.g., 5 for 5%). Use 0 for no tax.',
+      initialValue: 0,
+      group: 'billing',
+    }),
+
     // --- PAYMENTS & WHATSAPP ---
     defineField({
       name: 'whatsappNumber',
@@ -147,6 +165,7 @@ export const storeSettings = defineType({
   ],
   groups: [
     { name: 'branding', title: 'Branding & SEO' },
+    { name: 'billing', title: 'Billing & Taxes' },
     { name: 'payments', title: 'Payments & WhatsApp' },
     { name: 'storeInfo', title: 'Store Info & Links' },
     { name: 'emails', title: 'Email Templates' },

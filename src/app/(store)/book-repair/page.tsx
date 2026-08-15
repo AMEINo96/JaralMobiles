@@ -109,7 +109,7 @@ export default function BookRepairPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ticketID,
-          customerInfo: { name: formData.name, email: formData.email },
+          customerInfo: { name: formData.name, email: formData.email, phone: formData.phone },
           deviceDetails: { brand: formData.brand, model: formData.model, issueType: formData.issue },
         }),
       });
