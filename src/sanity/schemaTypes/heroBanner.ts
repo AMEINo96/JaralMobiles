@@ -27,6 +27,7 @@ export const heroBanner = defineType({
               title: 'Banner Image',
               type: 'image',
               options: { hotspot: true },
+              description: 'Tip: For the best look on desktop and mobile, use a wide aspect ratio (e.g., 1920x800px). Avoid extremely tall images to prevent destroying the layout.',
               validation: Rule => Rule.required(),
             }),
             defineField({

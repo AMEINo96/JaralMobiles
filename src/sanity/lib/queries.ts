@@ -78,7 +78,7 @@ export const getStoreSettingsQuery = groq`
 `
 
 export const getHeroBannerQuery = groq`
-  *[_type == "heroBanner"][0] {
+  *[_type == "heroBanner"] | order(_updatedAt desc)[0] {
     title,
     slides[] {
       image,
