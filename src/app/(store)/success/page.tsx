@@ -8,10 +8,11 @@ export const revalidate = 60
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const orderID = searchParams.orderID as string
-  const total = searchParams.total as string
+  const params = await searchParams
+  const orderID = params.orderID as string
+  const total = params.total as string
 
   const storeSettings = await client.fetch(getStoreSettingsQuery)
 
@@ -54,7 +55,7 @@ export default async function SuccessPage({
             {storeSettings?.bankDetails && (
               <div className="bg-white p-4 rounded-xl border border-blue-100">
                 <p className="text-[11px] font-semibold text-blue-600 uppercase tracking-wider mb-1">Bank Transfer</p>
-                <p className="font-medium text-slate-900 whitespace-pre-line">{storeSettings.bankDetails}</p>
+                <p className="font-medium text-slate-900 whitespace-pre-line break-all">{storeSettings.bankDetails}</p>
               </div>
             )}
           </div>

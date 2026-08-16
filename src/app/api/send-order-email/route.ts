@@ -7,7 +7,7 @@ const adminEmail = process.env.EMAIL_USER || process.env.ADMIN_EMAIL || 'admin@e
 
 export async function POST(req: Request) {
   try {
-    const { orderID, customerInfo, billing } = await req.json()
+    const { orderID, customerInfo, billing, cartItems } = await req.json()
 
     // Fetch dynamic store settings for custom email intro
     const storeSettings = await client.fetch(getStoreSettingsQuery)
@@ -16,6 +16,19 @@ export async function POST(req: Request) {
       : `<p>Your order <strong>${orderID}</strong> has been received and is awaiting payment.</p>`
 
     const formattedAddress = `${customerInfo.addressLine}, ${customerInfo.city}, ${customerInfo.province}, ${customerInfo.country}${customerInfo.landmark ? ` (Landmark: ${customerInfo.landmark})` : ''}`
+
+    const itemsHtml = cartItems && cartItems.length > 0 
+      ? `
+        <h3>Items Ordered:</h3>
+        <ul style="list-style-type: none; padding: 0;">
+          ${cartItems.map((item: any) => `
+            <li style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+              <strong>${item.quantity}x ${item.title}</strong> - Rs. ${item.price * item.quantity}
+            </li>
+          `).join('')}
+        </ul>
+      `
+      : ''
 
     // 1. Email to Admin
     await sendEmail({
@@ -27,6 +40,8 @@ export async function POST(req: Request) {
         <p><strong>Phone:</strong> ${customerInfo.phone}</p>
         <p><strong>Email:</strong> ${customerInfo.email}</p>
         <p><strong>Address:</strong> ${formattedAddress}</p>
+        <hr />
+        ${itemsHtml}
         <hr />
         <h3>Billing Summary:</h3>
         <p><strong>Subtotal:</strong> Rs. ${billing.subtotal}</p>
@@ -50,6 +65,8 @@ export async function POST(req: Request) {
           <h3>Order Summary</h3>
           <p><strong>Order ID:</strong> ${orderID}</p>
           <p><strong>Shipping Address:</strong> ${formattedAddress}</p>
+          <br />
+          ${itemsHtml}
           <br />
           <table style="width: 100%; text-align: left; border-collapse: collapse;">
             <tr>
