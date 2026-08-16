@@ -26,5 +26,14 @@ export const category = defineType({
       title: 'Description',
       type: 'text',
     }),
+    defineField({
+      name: 'icon',
+      title: 'Category Icon',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      description: 'Upload a small icon or image for this category (used in the category ribbon).',
+    }),
   ],
 })
