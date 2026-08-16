@@ -52,30 +52,28 @@ export default async function HomePage() {
                 {heroSubtitle}
               </p>
               
-              <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-                <div className="flex flex-col sm:flex-row gap-4 w-full xl:w-auto">
-                  <Link 
-                    href="/shop"
-                    className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-7 rounded-xl shadow-lg shadow-blue-600/25 transition-all flex-1"
-                  >
-                    Browse Accessories
-                    <ArrowRight className="w-5 h-5" />
-                  </Link>
-                  
-                  <Link 
-                    href="/book-repair"
-                    className="inline-flex items-center justify-center gap-2 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold py-3.5 px-7 rounded-xl transition-all flex-1"
-                  >
-                    <Wrench className="w-5 h-5" />
-                    Book a Repair
-                  </Link>
-                </div>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 w-full">
+                <Link 
+                  href="/shop"
+                  className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-blue-600/25 transition-all whitespace-nowrap"
+                >
+                  Browse Accessories
+                  <ArrowRight className="w-5 h-5 shrink-0" />
+                </Link>
+                
+                <Link 
+                  href="/book-repair"
+                  className="flex-1 flex items-center justify-center gap-2 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold py-3.5 px-6 rounded-xl transition-all whitespace-nowrap"
+                >
+                  <Wrench className="w-5 h-5 shrink-0" />
+                  Book a Repair
+                </Link>
 
                 <Link 
                   href="/services"
-                  className="inline-flex items-center justify-center gap-2 bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20 font-semibold py-3.5 px-7 rounded-xl transition-all w-full xl:w-auto flex-1"
+                  className="flex-1 flex items-center justify-center gap-2 bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20 font-semibold py-3.5 px-6 rounded-xl transition-all whitespace-nowrap"
                 >
-                  <Zap className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                  <Zap className="w-5 h-5 text-yellow-400 fill-yellow-400 shrink-0" />
                   Digital Services
                 </Link>
               </div>
