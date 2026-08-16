@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
-import { Resend } from 'resend'
 import { client } from '@/sanity/lib/client'
 import { getStoreSettingsQuery } from '@/sanity/lib/queries'
+import { sendEmail } from '@/lib/gmail'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com'
+const adminEmail = process.env.EMAIL_USER || process.env.ADMIN_EMAIL || 'admin@example.com'
 
 export async function POST(req: Request) {
   try {
@@ -19,8 +18,7 @@ export async function POST(req: Request) {
     const formattedAddress = `${customerInfo.addressLine}, ${customerInfo.city}, ${customerInfo.province}, ${customerInfo.country}${customerInfo.landmark ? ` (Landmark: ${customerInfo.landmark})` : ''}`
 
     // 1. Email to Admin
-    await resend.emails.send({
-      from: 'onboarding@resend.dev',
+    await sendEmail({
       to: adminEmail,
       subject: `New Order Received - ${orderID}`,
       html: `
@@ -42,8 +40,7 @@ export async function POST(req: Request) {
 
     // 2. Email to Customer (if email is provided)
     if (customerInfo.email) {
-      await resend.emails.send({
-        from: 'onboarding@resend.dev',
+      await sendEmail({
         to: customerInfo.email,
         subject: `Order Confirmation - ${orderID}`,
         html: `
@@ -84,7 +81,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Resend Error:', error)
+    console.error('Gmail API Error:', error)
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 })
   }
 }
