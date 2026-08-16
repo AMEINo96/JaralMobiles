@@ -12,6 +12,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: settings?.siteTitle || 'New Jaral Mobiles - Premium Accessories & Expert Repairs',
     description: settings?.siteDescription || 'Your trusted destination for genuine mobile accessories, fast chargers, premium cases, and expert device repairs. EasyPaisa, JazzCash & Bank Transfer accepted.',
+    verification: {
+      google: '7C6vBiS67ysVtiFDPstqY3QNHKX-4bTgVwKIGvkvAS8',
+    },
   }
 }
 
