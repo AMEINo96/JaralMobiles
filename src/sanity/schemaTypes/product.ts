@@ -53,5 +53,38 @@ export const product = defineType({
       title: 'Description',
       type: 'text',
     }),
+    defineField({
+      name: 'isFeatured',
+      title: 'Feature in Top Deals',
+      type: 'boolean',
+      initialValue: false,
+      description: 'Turn this on to prioritize showing this product in the Top Deals section.',
+    }),
+    defineField({
+      name: 'hasWarranty',
+      title: 'Has Warranty?',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'warrantyDuration',
+      title: 'Warranty Duration',
+      type: 'string',
+      hidden: ({ document }) => !document?.hasWarranty,
+      description: 'e.g., "6 Months", "1 Year"',
+    }),
+    defineField({
+      name: 'hasReturn',
+      title: 'Has Return Policy?',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'returnDuration',
+      title: 'Return Duration',
+      type: 'string',
+      hidden: ({ document }) => !document?.hasReturn,
+      description: 'e.g., "7 Days", "30 Days"',
+    }),
   ],
 })

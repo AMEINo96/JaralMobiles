@@ -14,7 +14,7 @@ export const getAllProductsQuery = groq`
 `
 
 export const getFeaturedProductsQuery = groq`
-  *[_type == "product"] | order(_createdAt desc)[0...4] {
+  *[_type == "product"] | order(isFeatured desc, _createdAt desc)[0...4] {
     _id,
     title,
     slug,
@@ -35,7 +35,23 @@ export const getProductBySlugQuery = groq`
     images,
     "category": category->title,
     inStock,
-    description
+    description,
+    hasWarranty,
+    warrantyDuration,
+    hasReturn,
+    returnDuration
+  }
+`
+
+export const getSimilarProductsQuery = groq`
+  *[_type == "product" && category->title == $category && slug.current != $slug] | order(_createdAt desc)[0...4] {
+    _id,
+    title,
+    slug,
+    price,
+    images,
+    "category": category->title,
+    inStock
   }
 `
 

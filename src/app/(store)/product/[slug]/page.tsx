@@ -1,9 +1,10 @@
 import { client } from "@/sanity/lib/client";
-import { getProductBySlugQuery } from "@/sanity/lib/queries";
+import { getProductBySlugQuery, getSimilarProductsQuery } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { ShieldCheck, Truck, RotateCcw } from "lucide-react";
 import AddToCartButton from "./AddToCartButton";
 import ImageGallery from "@/components/ImageGallery";
+import ProductCard from "@/components/ProductCard";
 
 export const revalidate = 60;
 
@@ -19,11 +20,17 @@ export default async function ProductPage({
     notFound();
   }
 
-  const categoryName = product.category?.name || "Uncategorized";
+  const categoryName = product.category || "Uncategorized";
+  
+  // Fetch similar items
+  const similarProducts = await client.fetch(getSimilarProductsQuery, { 
+    category: categoryName, 
+    slug: slug 
+  });
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex flex-col lg:flex-row gap-12">
+      <div className="flex flex-col lg:flex-row gap-12 mb-20">
         {/* Left: Image Gallery */}
         <div className="lg:w-1/2">
           <ImageGallery images={product.images || []} />
@@ -45,17 +52,17 @@ export default async function ProductPage({
 
           {/* Title */}
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
-            {product.name}
+            {product.title}
           </h1>
 
           {/* Price */}
           <div className="text-3xl font-bold text-slate-900 mb-6">
-            £{product.price?.toFixed(2)}
+            Rs. {product.price?.toLocaleString()}
           </div>
 
           {/* Stock Status */}
           <div className="flex items-center gap-2 mb-6">
-            {product.stock > 0 ? (
+            {product.inStock ? (
               <>
                 <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse" />
                 <span className="text-emerald-600 font-medium text-sm">
@@ -84,27 +91,43 @@ export default async function ProductPage({
 
           {/* Guarantees */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-auto border-t border-slate-100 pt-8">
-            <div className="bg-slate-50 p-4 rounded-xl flex flex-col items-center text-center gap-2">
-              <ShieldCheck className="w-6 h-6 text-blue-600" />
-              <span className="text-xs font-semibold text-slate-700">
-                1 Year Warranty
-              </span>
-            </div>
+            {product.hasWarranty && (
+              <div className="bg-slate-50 p-4 rounded-xl flex flex-col items-center text-center gap-2">
+                <ShieldCheck className="w-6 h-6 text-blue-600" />
+                <span className="text-xs font-semibold text-slate-700">
+                  {product.warrantyDuration || "Warranty Included"}
+                </span>
+              </div>
+            )}
             <div className="bg-slate-50 p-4 rounded-xl flex flex-col items-center text-center gap-2">
               <Truck className="w-6 h-6 text-blue-600" />
               <span className="text-xs font-semibold text-slate-700">
                 Fast Delivery
               </span>
             </div>
-            <div className="bg-slate-50 p-4 rounded-xl flex flex-col items-center text-center gap-2">
-              <RotateCcw className="w-6 h-6 text-blue-600" />
-              <span className="text-xs font-semibold text-slate-700">
-                30-Day Returns
-              </span>
-            </div>
+            {product.hasReturn && (
+              <div className="bg-slate-50 p-4 rounded-xl flex flex-col items-center text-center gap-2">
+                <RotateCcw className="w-6 h-6 text-blue-600" />
+                <span className="text-xs font-semibold text-slate-700">
+                  {product.returnDuration || "Easy Returns"}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Similar Items Section */}
+      {similarProducts && similarProducts.length > 0 && (
+        <div className="border-t border-slate-200 pt-16 mt-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8">Similar Items</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {similarProducts.map((similarProduct: any) => (
+              <ProductCard key={similarProduct._id} product={similarProduct} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
