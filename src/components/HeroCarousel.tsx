@@ -39,15 +39,15 @@ export default function HeroCarousel({ slides }: { slides: Slide[] }) {
       <div ref={emblaRef} className="overflow-hidden">
         <div className="flex">
           {slides.map((slide, index) => {
-            const imageUrl = urlForImage(slide.image).width(1920).height(600).url()
+            const imageUrl = urlForImage(slide.image).width(1920).url()
             const content = (
-              <div className="relative h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] w-full flex-shrink-0 flex-grow-0 basis-full">
+              <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.4/1] flex-shrink-0 flex-grow-0 basis-full">
                 <Image
                   src={imageUrl}
                   alt={slide.altText}
                   fill
                   sizes="100vw"
-                  className="object-cover"
+                  className="object-cover object-center"
                   priority={index === 0}
                 />
               </div>
