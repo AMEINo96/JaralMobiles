@@ -121,6 +121,7 @@ export const getServicesQuery = groq`
     _id,
     title,
     description,
+    image,
     iconName,
     whatsappMessage
   }

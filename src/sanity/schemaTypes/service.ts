@@ -20,9 +20,17 @@ export const service = defineType({
       description: 'A brief description of what this service includes.',
     }),
     defineField({
+      name: 'image',
+      title: 'Service Image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Optional: Upload an image. If provided, the icon below will be ignored.',
+    }),
+    defineField({
       name: 'iconName',
       title: 'Service Icon',
       type: 'string',
+      hidden: ({ parent }) => !!parent?.image,
       options: {
         list: [
           { title: 'Printer / Printouts', value: 'printer' },

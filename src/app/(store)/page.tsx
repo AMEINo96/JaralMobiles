@@ -4,7 +4,6 @@ import { getFeaturedProductsQuery, getHeroBannerQuery, getStoreSettingsQuery } f
 import ProductCard from "@/components/ProductCard";
 import HeroCarousel from "@/components/HeroCarousel";
 import CategoryRibbon from "@/components/CategoryRibbon";
-import ServicesSection from "@/components/ServicesSection";
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -53,21 +52,31 @@ export default async function HomePage() {
                 {heroSubtitle}
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 w-full xl:w-auto">
+                  <Link 
+                    href="/shop"
+                    className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-7 rounded-xl shadow-lg shadow-blue-600/25 transition-all flex-1"
+                  >
+                    Browse Accessories
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                  
+                  <Link 
+                    href="/book-repair"
+                    className="inline-flex items-center justify-center gap-2 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold py-3.5 px-7 rounded-xl transition-all flex-1"
+                  >
+                    <Wrench className="w-5 h-5" />
+                    Book a Repair
+                  </Link>
+                </div>
+
                 <Link 
-                  href="/shop"
-                  className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-7 rounded-xl shadow-lg shadow-blue-600/25 transition-all"
+                  href="/services"
+                  className="inline-flex items-center justify-center gap-2 bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20 font-semibold py-3.5 px-7 rounded-xl transition-all w-full xl:w-auto flex-1"
                 >
-                  Browse Accessories
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-                
-                <Link 
-                  href="/book-repair"
-                  className="inline-flex items-center justify-center gap-2 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold py-3.5 px-7 rounded-xl transition-all"
-                >
-                  <Wrench className="w-5 h-5" />
-                  Book a Repair
+                  <Zap className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                  Digital Services
                 </Link>
               </div>
             </div>
@@ -127,9 +136,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Digital & In-Store Services */}
-      <ServicesSection />
 
       {/* Themed Top Deals Section */}
       <section className="bg-emerald-600 rounded-t-3xl md:rounded-none mt-2 md:mt-0 pt-5 md:pt-16 pb-6 md:pb-20">
