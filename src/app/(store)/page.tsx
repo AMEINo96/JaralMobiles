@@ -4,6 +4,7 @@ import { getFeaturedProductsQuery, getHeroBannerQuery, getStoreSettingsQuery } f
 import ProductCard from "@/components/ProductCard";
 import HeroCarousel from "@/components/HeroCarousel";
 import CategoryRibbon from "@/components/CategoryRibbon";
+import ServicesSection from "@/components/ServicesSection";
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -126,6 +127,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Digital & In-Store Services */}
+      <ServicesSection />
 
       {/* Themed Top Deals Section */}
       <section className="bg-emerald-600 rounded-t-3xl md:rounded-none mt-2 md:mt-0 pt-5 md:pt-16 pb-6 md:pb-20">

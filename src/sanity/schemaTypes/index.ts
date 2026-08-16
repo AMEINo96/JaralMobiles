@@ -4,7 +4,8 @@ import { category } from './category'
 import { storeSettings } from './storeSettings'
 import { heroBanner } from './heroBanner'
 import { repairSettings } from './repairSettings'
+import { service } from './service'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [category, product, storeSettings, heroBanner, repairSettings],
+  types: [category, product, storeSettings, heroBanner, repairSettings, service],
 }

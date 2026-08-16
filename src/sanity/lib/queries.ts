@@ -115,3 +115,13 @@ export const getRepairSettingsQuery = groq`
     repairIssues
   }
 `
+
+export const getServicesQuery = groq`
+  *[_type == "service" && isActive == true] | order(_createdAt asc) {
+    _id,
+    title,
+    description,
+    iconName,
+    whatsappMessage
+  }
+`
