@@ -27,13 +27,24 @@ export const category = defineType({
       type: 'text',
     }),
     defineField({
-      name: 'icon',
+      name: 'iconName',
       title: 'Category Icon',
-      type: 'image',
+      type: 'string',
       options: {
-        hotspot: true,
+        list: [
+          { title: 'Smartphone', value: 'smartphone' },
+          { title: 'Headphones/Earbuds', value: 'headphones' },
+          { title: 'Smartwatch', value: 'watch' },
+          { title: 'Cable/Wire', value: 'cable' },
+          { title: 'Charger/Battery', value: 'battery' },
+          { title: 'Case/Protection', value: 'shield' },
+          { title: 'Repair/Service', value: 'wrench' },
+          { title: 'Camera/Lenses', value: 'camera' },
+          { title: 'Laptop/Tablet', value: 'laptop' },
+          { title: 'Speaker/Audio', value: 'speaker' },
+        ],
       },
-      description: 'Upload a small icon or image for this category (used in the category ribbon).',
+      description: 'Select an icon to represent this category.',
     }),
   ],
 })

@@ -61,7 +61,7 @@ export const getAllCategoriesQuery = groq`
     title,
     slug,
     description,
-    icon
+    iconName
   }
 `
 
