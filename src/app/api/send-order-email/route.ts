@@ -31,8 +31,9 @@ export async function POST(req: Request) {
       : ''
 
     // 1. Email to Admin
+    const adminTo = storeSettings?.adminNotificationEmail || adminEmail;
     await sendEmail({
-      to: adminEmail,
+      to: adminTo,
       subject: `New Order Received - ${orderID}`,
       html: `
         <h2>New Order: ${orderID}</h2>

@@ -18,8 +18,9 @@ export async function POST(req: Request) {
     const address = storeSettings?.address || '123 Tech Avenue, Hafeez Center, Lahore'
 
     // 1. Email to Admin
+    const adminTo = storeSettings?.adminNotificationEmail || adminEmail;
     await sendEmail({
-      to: adminEmail,
+      to: adminTo,
       subject: `New Repair Ticket - ${ticketID}`,
       html: `
         <h2>New Repair Request: ${ticketID}</h2>

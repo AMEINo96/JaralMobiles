@@ -157,7 +157,13 @@ export const storeSettings = defineType({
       group: 'storeInfo',
     }),
 
-    // --- EMAIL TEMPLATES ---
+    defineField({
+      name: 'adminNotificationEmail',
+      title: 'Admin Notification Email',
+      type: 'string',
+      description: 'The email address where you will receive notifications for new orders and repair tickets. (Overrides the default .env email)',
+      group: 'emails',
+    }),
     defineField({
       name: 'orderEmailIntro',
       title: 'Order Confirmation Email (Intro)',

@@ -87,6 +87,7 @@ export const getStoreSettingsQuery = groq`
     instagramLink,
     facebookLink,
     googleMapsLink,
+    adminNotificationEmail,
     orderEmailIntro,
     repairEmailIntro,
     announcementActive,
