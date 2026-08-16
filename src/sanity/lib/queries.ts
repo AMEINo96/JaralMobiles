@@ -8,6 +8,7 @@ export const getAllProductsQuery = groq`
     price,
     images,
     "category": category->title,
+    "categorySlug": category->slug.current,
     inStock,
     description
   }

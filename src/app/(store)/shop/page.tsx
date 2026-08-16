@@ -1,17 +1,27 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { client } from '@/sanity/lib/client';
 import { getAllProductsQuery, getAllCategoriesQuery } from '@/sanity/lib/queries';
 import ProductCard from '@/components/ProductCard';
 import { Search } from 'lucide-react';
 
-export default function ShopPage() {
+function ShopContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
+  const urlCategory = searchParams.get('category') || 'all';
+
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [activeCategory, setActiveCategory] = useState<string>(urlCategory);
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    setActiveCategory(searchParams.get('category') || 'all');
+  }, [searchParams]);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,28 +31,8 @@ export default function ShopPage() {
           client.fetch(getAllCategoriesQuery)
         ]);
         
-        const defaultCategories = [
-          { _id: 'def-1', title: 'Chargers & Adapters', slug: { current: 'chargers' } },
-          { _id: 'def-2', title: 'Cables & Hubs', slug: { current: 'cables' } },
-          { _id: 'def-3', title: 'Power Banks', slug: { current: 'power-banks' } },
-          { _id: 'def-4', title: 'Cases & Covers', slug: { current: 'cases' } },
-          { _id: 'def-5', title: 'Screen Protectors', slug: { current: 'screen-protectors' } },
-          { _id: 'def-6', title: 'Earbuds & Audio', slug: { current: 'earbuds' } },
-          { _id: 'def-7', title: 'Smartwatches', slug: { current: 'smartwatches' } },
-        ];
-
-        const sanityCats = fetchedCategories || [];
-        
-        // Merge defaults if they don't exist in Sanity
-        const mergedCategories = [
-          ...defaultCategories.filter(def => 
-            !sanityCats.some((cat: any) => cat.title.toLowerCase() === def.title.toLowerCase())
-          ),
-          ...sanityCats
-        ];
-
         setProducts(fetchedProducts || []);
-        setCategories(mergedCategories);
+        setCategories(fetchedCategories || []);
       } catch (error) {
         console.error('Error fetching shop data:', error);
       } finally {
@@ -52,8 +42,17 @@ export default function ShopPage() {
     fetchData();
   }, []);
 
+  const handleCategoryClick = (slug: string) => {
+    setActiveCategory(slug);
+    if (slug === 'all') {
+      router.push('/shop');
+    } else {
+      router.push(`/shop?category=${slug}`);
+    }
+  };
+
   const filteredProducts = products.filter(product => {
-    const matchesCategory = activeCategory === 'all' || product.category?._ref === activeCategory || product.category?._id === activeCategory;
+    const matchesCategory = activeCategory === 'all' || product.categorySlug === activeCategory;
     const matchesSearch = product.title?.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
@@ -76,7 +75,7 @@ export default function ShopPage() {
           
           <div className="flex overflow-x-auto w-full sm:w-auto hide-scrollbar gap-2 items-center flex-nowrap">
             <button
-              onClick={() => setActiveCategory('all')}
+              onClick={() => handleCategoryClick('all')}
               className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors flex-shrink-0 ${
                 activeCategory === 'all'
                   ? 'bg-blue-600 text-white'
@@ -88,9 +87,9 @@ export default function ShopPage() {
             {categories.map((category) => (
               <button
                 key={category._id}
-                onClick={() => setActiveCategory(category._id)}
+                onClick={() => handleCategoryClick(category.slug?.current || '')}
                 className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors flex-shrink-0 ${
-                  activeCategory === category._id
+                  activeCategory === category.slug?.current
                     ? 'bg-blue-600 text-white'
                     : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'
                 }`}
@@ -135,7 +134,7 @@ export default function ShopPage() {
             <p className="text-slate-600 mb-6">We couldn't find any products matching your criteria.</p>
             <button
               onClick={() => {
-                setActiveCategory('all');
+                handleCategoryClick('all');
                 setSearchQuery('');
               }}
               className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
@@ -146,5 +145,13 @@ export default function ShopPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>}>
+      <ShopContent />
+    </Suspense>
   );
 }
