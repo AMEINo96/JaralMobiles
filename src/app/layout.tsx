@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { client } from '@/sanity/lib/client'
 import { getStoreSettingsQuery } from '@/sanity/lib/queries'
+import { Analytics } from '@vercel/analytics/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,6 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} ${themeClass} antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   )
